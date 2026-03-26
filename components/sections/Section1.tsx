@@ -47,7 +47,6 @@ export default function Section1({ register, errors, watch, setValue, control }:
         padding: "20px 24px",
         marginBottom: "28px",
       }}>
-        <div style={{ fontSize: "1.4rem", marginBottom: "8px" }}>🚀</div>
         <p style={{ color: "rgba(255,255,255,0.9)", fontSize: "0.95rem", lineHeight: 1.6, margin: 0 }}>
           <strong style={{ color: "white" }}>We're excited to be building your Personalized AI assistant!</strong>
           {" "}Everything you fill out here can be edited or added to later — but the more details you give us now, the better your agent will be on launch!
