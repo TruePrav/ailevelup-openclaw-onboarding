@@ -159,14 +159,9 @@ export default function OnboardingForm() {
         <div className="max-w-2xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3">
-              <img src="/logo.jpg" alt="AILevelUp" style={{ height: "36px", width: "36px", borderRadius: "6px", objectFit: "cover" }} />
-              <div>
-                <div style={{ color: "#7c3aed", fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" }}>
-                  ailevelup.ca
-                </div>
-                <div style={{ color: "rgba(255,255,255,0.9)", fontSize: "0.9rem", fontWeight: 500 }}>
-                  Personal AI Onboarding
-                </div>
+              <img src="/logo.jpg" alt="AILevelUp" style={{ height: "52px", width: "auto", borderRadius: "8px", objectFit: "contain" }} />
+              <div style={{ color: "rgba(255,255,255,0.9)", fontSize: "0.9rem", fontWeight: 500 }}>
+                Personal AI Onboarding
               </div>
             </div>
             <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.85rem" }}>
