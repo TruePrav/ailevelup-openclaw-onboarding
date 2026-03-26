@@ -7,6 +7,7 @@ import {
   CheckboxGroup, RadioGroup, errorStyle
 } from "../ui";
 import TimezoneSelect from "../TimezoneSelect";
+import PhoneInput from "../PhoneInput";
 
 interface Props {
   register: UseFormRegister<FormData>;
@@ -89,17 +90,21 @@ export default function Section1({ register, errors, watch, setValue, control }:
 
         <Field
           qNum="Q3"
-          label="What's your phone number (with country code)?"
+          label="What's your phone number?"
           hint="For connecting your agent to your messaging app"
           error={errors.q3_phone?.message}
         >
-          <input
-            {...register("q3_phone", { required: "Phone number is required" })}
-            placeholder="+1 416 555 0000"
-            style={{
-              ...inputStyle,
-              borderColor: errors.q3_phone ? "#f87171" : "rgba(255,255,255,0.12)",
-            }}
+          <Controller
+            name="q3_phone"
+            control={control}
+            rules={{ required: "Phone number is required" }}
+            render={({ field }) => (
+              <PhoneInput
+                value={field.value || ""}
+                onChange={field.onChange}
+                hasError={!!errors.q3_phone}
+              />
+            )}
           />
         </Field>
 
