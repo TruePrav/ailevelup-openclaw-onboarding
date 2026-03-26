@@ -108,6 +108,7 @@ export async function POST(request: NextRequest) {
       q14_tone: data.q14_tone,
       q15_agent_name: data.q15_agent_name,
       q16_integrations: data.q16_integrations,
+      q16_integrations_other: data.q16_integrations_other,
       q17_monitoring: data.q17_monitoring,
       q18_private: data.q18_private,
       q19_access: data.q19_access,

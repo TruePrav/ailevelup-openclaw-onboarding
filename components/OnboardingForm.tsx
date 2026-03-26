@@ -38,6 +38,7 @@ export type FormData = {
   q15_agent_name: string;
   // Section 5
   q16_integrations: string[];
+  q16_integrations_other: string;
   q17_monitoring: string;
   // Section 6
   q18_private: string;

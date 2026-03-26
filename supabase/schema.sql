@@ -35,6 +35,7 @@ create table public.onboarding_submissions (
 
   -- Section 5
   q16_integrations jsonb,
+  q16_integrations_other text,
   q17_monitoring text,
 
   -- Section 6

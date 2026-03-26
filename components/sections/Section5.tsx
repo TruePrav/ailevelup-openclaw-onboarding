@@ -2,7 +2,7 @@
 
 import { UseFormRegister, FieldErrors, UseFormSetValue, Controller, Control } from "react-hook-form";
 import { FormData } from "../OnboardingForm";
-import { Field, SectionHeader, textareaStyle, cardStyle, CheckboxGroup } from "../ui";
+import { Field, SectionHeader, textareaStyle, inputStyle, cardStyle, CheckboxGroup, CategoryLabel } from "../ui";
 
 interface Props {
   register: UseFormRegister<FormData>;
@@ -25,7 +25,12 @@ const INTEGRATION_OPTIONS = [
   "None yet — start basic and add later",
 ];
 
+const OTHER_INTEGRATIONS_KEY = "__other__";
+
 export default function Section5({ register, errors, watch, setValue, control }: Props) {
+  const selectedIntegrations = watch.q16_integrations || [];
+  const showOtherInput = selectedIntegrations.includes(OTHER_INTEGRATIONS_KEY);
+
   return (
     <div>
       <SectionHeader
@@ -45,12 +50,21 @@ export default function Section5({ register, errors, watch, setValue, control }:
             defaultValue={[]}
             render={({ field }) => (
               <CheckboxGroup
-                options={INTEGRATION_OPTIONS}
-                selected={field.value || []}
-                onChange={field.onChange}
+                options={[...INTEGRATION_OPTIONS, "Other (specify below)"]}
+                selected={(field.value || []).map((v: string) => v === OTHER_INTEGRATIONS_KEY ? "Other (specify below)" : v)}
+                onChange={(vals) => field.onChange(vals.map((v: string) => v === "Other (specify below)" ? OTHER_INTEGRATIONS_KEY : v))}
               />
             )}
           />
+          {showOtherInput && (
+            <div style={{ marginTop: "12px" }}>
+              <input
+                {...register("q16_integrations_other")}
+                placeholder="e.g. Airtable, HubSpot, Xero, Discord..."
+                style={{ ...inputStyle, borderColor: "rgba(124,58,237,0.4)" }}
+              />
+            </div>
+          )}
         </Field>
 
         <Field
