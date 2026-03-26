@@ -1,6 +1,6 @@
 "use client";
 
-import { UseFormRegister, FieldErrors, UseFormSetValue } from "react-hook-form";
+import { UseFormRegister, FieldErrors, UseFormSetValue, Controller, Control } from "react-hook-form";
 import { FormData } from "../OnboardingForm";
 import { Field, SectionHeader, textareaStyle, cardStyle, CheckboxGroup } from "../ui";
 
@@ -9,6 +9,7 @@ interface Props {
   errors: FieldErrors<FormData>;
   watch: Partial<FormData>;
   setValue: UseFormSetValue<FormData>;
+  control: Control<FormData>;
 }
 
 const INTEGRATION_OPTIONS = [
@@ -24,9 +25,7 @@ const INTEGRATION_OPTIONS = [
   "None yet — start basic and add later",
 ];
 
-export default function Section5({ register, errors, watch, setValue }: Props) {
-  const selectedIntegrations = watch.q16_integrations || [];
-
+export default function Section5({ register, errors, watch, setValue, control }: Props) {
   return (
     <div>
       <SectionHeader
@@ -40,10 +39,17 @@ export default function Section5({ register, errors, watch, setValue }: Props) {
           label="Which of these do you use and would want your agent to access?"
           hint="Select all that apply — you'll connect these after setup"
         >
-          <CheckboxGroup
-            options={INTEGRATION_OPTIONS}
-            selected={selectedIntegrations}
-            onChange={(val) => setValue("q16_integrations", val)}
+          <Controller
+            name="q16_integrations"
+            control={control}
+            defaultValue={[]}
+            render={({ field }) => (
+              <CheckboxGroup
+                options={INTEGRATION_OPTIONS}
+                selected={field.value || []}
+                onChange={field.onChange}
+              />
+            )}
           />
         </Field>
 

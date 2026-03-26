@@ -1,6 +1,6 @@
 "use client";
 
-import { UseFormRegister, FieldErrors, UseFormSetValue } from "react-hook-form";
+import { UseFormRegister, FieldErrors, UseFormSetValue, Controller, Control } from "react-hook-form";
 import { FormData } from "../OnboardingForm";
 import {
   Field, SectionHeader, textareaStyle, cardStyle,
@@ -12,6 +12,7 @@ interface Props {
   errors: FieldErrors<FormData>;
   watch: Partial<FormData>;
   setValue: UseFormSetValue<FormData>;
+  control: Control<FormData>;
 }
 
 const DAILY_OPS = [
@@ -43,12 +44,7 @@ const WORK_BUSINESS = [
   "Summarize documents or meetings",
 ];
 
-export default function Section3({ register, errors, watch, setValue }: Props) {
-  const selectedCaps = watch.q10_capabilities || [];
-
-  const allOptions = [...DAILY_OPS, ...RESEARCH, ...PERSONAL, ...WORK_BUSINESS];
-  const selectedFromAll = selectedCaps.filter((c) => allOptions.includes(c));
-
+export default function Section3({ register, errors, watch, setValue, control }: Props) {
   return (
     <div>
       <SectionHeader
@@ -62,34 +58,27 @@ export default function Section3({ register, errors, watch, setValue }: Props) {
           label="Which of these would you want your agent to help with?"
           hint="Select all that apply"
         >
-          <CategoryLabel label="Daily Ops" />
-          <CheckboxGroup
-            options={DAILY_OPS}
-            selected={selectedCaps}
-            onChange={(val) => setValue("q10_capabilities", val)}
+          <Controller
+            name="q10_capabilities"
+            control={control}
+            defaultValue={[]}
+            render={({ field }) => {
+              const selected = field.value || [];
+              const toggle = (opts: string[]) => field.onChange(opts);
+              return (
+                <>
+                  <CategoryLabel label="Daily Ops" />
+                  <CheckboxGroup options={DAILY_OPS} selected={selected} onChange={toggle} />
+                  <CategoryLabel label="Research & Information" />
+                  <CheckboxGroup options={RESEARCH} selected={selected} onChange={toggle} />
+                  <CategoryLabel label="Personal" />
+                  <CheckboxGroup options={PERSONAL} selected={selected} onChange={toggle} />
+                  <CategoryLabel label="Work & Business" />
+                  <CheckboxGroup options={WORK_BUSINESS} selected={selected} onChange={toggle} />
+                </>
+              );
+            }}
           />
-
-          <CategoryLabel label="Research & Information" />
-          <CheckboxGroup
-            options={RESEARCH}
-            selected={selectedCaps}
-            onChange={(val) => setValue("q10_capabilities", val)}
-          />
-
-          <CategoryLabel label="Personal" />
-          <CheckboxGroup
-            options={PERSONAL}
-            selected={selectedCaps}
-            onChange={(val) => setValue("q10_capabilities", val)}
-          />
-
-          <CategoryLabel label="Work & Business" />
-          <CheckboxGroup
-            options={WORK_BUSINESS}
-            selected={selectedCaps}
-            onChange={(val) => setValue("q10_capabilities", val)}
-          />
-
           <CategoryLabel label="Other" />
           <input
             {...register("q10_other_text")}

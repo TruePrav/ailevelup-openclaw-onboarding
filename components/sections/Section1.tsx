@@ -6,6 +6,7 @@ import {
   Field, SectionHeader, inputStyle, cardStyle,
   CheckboxGroup, RadioGroup, errorStyle
 } from "../ui";
+import TimezoneSelect from "../TimezoneSelect";
 
 interface Props {
   register: UseFormRegister<FormData>;
@@ -105,16 +106,19 @@ export default function Section1({ register, errors, watch, setValue, control }:
         <Field
           qNum="Q4"
           label="What timezone are you in?"
-          hint="e.g. EST, GMT+1, Asia/Kolkata"
           error={errors.q4_timezone?.message}
         >
-          <input
-            {...register("q4_timezone", { required: "Timezone is required" })}
-            placeholder="e.g. EST, GMT-5, America/Toronto"
-            style={{
-              ...inputStyle,
-              borderColor: errors.q4_timezone ? "#f87171" : "rgba(255,255,255,0.12)",
-            }}
+          <Controller
+            name="q4_timezone"
+            control={control}
+            rules={{ required: "Please select your timezone" }}
+            render={({ field }) => (
+              <TimezoneSelect
+                value={field.value || ""}
+                onChange={field.onChange}
+                hasError={!!errors.q4_timezone}
+              />
+            )}
           />
         </Field>
 
@@ -122,10 +126,17 @@ export default function Section1({ register, errors, watch, setValue, control }:
           qNum="Q5"
           label="What hours are you most active?"
         >
-          <CheckboxGroup
-            options={ACTIVE_HOURS_OPTIONS}
-            selected={selectedHours}
-            onChange={(val) => setValue("q5_active_hours", val)}
+          <Controller
+            name="q5_active_hours"
+            control={control}
+            defaultValue={[]}
+            render={({ field }) => (
+              <CheckboxGroup
+                options={ACTIVE_HOURS_OPTIONS}
+                selected={field.value || []}
+                onChange={field.onChange}
+              />
+            )}
           />
         </Field>
       </div>

@@ -197,13 +197,13 @@ export default function OnboardingForm() {
             <Section2 register={register} errors={errors} />
           )}
           {currentStep === 3 && (
-            <Section3 register={register} errors={errors} watch={watchedValues} setValue={setValue} />
+            <Section3 register={register} errors={errors} watch={watchedValues} setValue={setValue} control={control} />
           )}
           {currentStep === 4 && (
             <Section4 register={register} errors={errors} watch={watchedValues} setValue={setValue} control={control} />
           )}
           {currentStep === 5 && (
-            <Section5 register={register} errors={errors} watch={watchedValues} setValue={setValue} />
+            <Section5 register={register} errors={errors} watch={watchedValues} setValue={setValue} control={control} />
           )}
           {currentStep === 6 && (
             <Section6 register={register} errors={errors} watch={watchedValues} setValue={setValue} control={control} />
