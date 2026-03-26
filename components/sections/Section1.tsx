@@ -39,6 +39,21 @@ export default function Section1({ register, errors, watch, setValue, control }:
 
   return (
     <div>
+      {/* Intro banner — only shown on step 1 */}
+      <div style={{
+        background: "linear-gradient(135deg, rgba(124,58,237,0.15), rgba(139,92,246,0.08))",
+        border: "1px solid rgba(124,58,237,0.3)",
+        borderRadius: "14px",
+        padding: "20px 24px",
+        marginBottom: "28px",
+      }}>
+        <div style={{ fontSize: "1.4rem", marginBottom: "8px" }}>🚀</div>
+        <p style={{ color: "rgba(255,255,255,0.9)", fontSize: "0.95rem", lineHeight: 1.6, margin: 0 }}>
+          <strong style={{ color: "white" }}>We're excited to be building your Personalized AI assistant!</strong>
+          {" "}Everything you fill out here can be edited or added to later — but the more details you give us now, the better your agent will be on launch!
+        </p>
+      </div>
+
       <SectionHeader
         title="The Basics"
         subtitle="Let's start with the essentials. This helps us connect you to your agent."
