@@ -101,11 +101,11 @@ export default function Section4({ register, errors, watch, setValue, control }:
         <Field
           qNum="Q15"
           label="Give your agent a name (optional)"
-          hint="Default is 'Alfred' — but you can choose anything"
+          hint="Default is 'Nova' — but you can choose anything"
         >
           <input
             {...register("q15_agent_name")}
-            placeholder="Alfred"
+            placeholder="Nova"
             style={inputStyle}
           />
         </Field>

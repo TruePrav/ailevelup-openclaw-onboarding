@@ -20,7 +20,7 @@ export default function ConfirmationScreen({ data }: Props) {
     ? (data.q2_messaging_other || "your preferred app")
     : (messagingLabels[data.q2_messaging_app] || data.q2_messaging_app || "your messaging app");
   const topPriority = data.q11_top_priority || "Helping you every day";
-  const agentName = data.q15_agent_name?.trim() || "Alfred";
+  const agentName = data.q15_agent_name?.trim() || "Nova";
 
   return (
     <div className="min-h-screen" style={{ background: "#0a0a0f" }}>
