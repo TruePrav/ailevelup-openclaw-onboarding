@@ -11,7 +11,12 @@ interface Props {
 
 function getTimezones(): string[] {
   try {
-    return (Intl as any).supportedValuesOf("timeZone") as string[];
+    const tzs = (Intl as any).supportedValuesOf("timeZone") as string[];
+    return tzs.sort((a: string, b: string) => {
+      const cityA = a.split("/").pop()!.replace(/_/g, " ");
+      const cityB = b.split("/").pop()!.replace(/_/g, " ");
+      return cityA.localeCompare(cityB);
+    });
   } catch {
     // Fallback list for older browsers
     return [
@@ -33,7 +38,11 @@ function getTimezones(): string[] {
       "Australia/Perth", "Australia/Darwin", "Australia/Adelaide", "Australia/Brisbane",
       "Australia/Sydney", "Australia/Melbourne", "Pacific/Auckland", "Pacific/Fiji",
       "Pacific/Honolulu", "Pacific/Guam",
-    ];
+    ].sort((a, b) => {
+      const cityA = a.split("/").pop()!.replace(/_/g, " ");
+      const cityB = b.split("/").pop()!.replace(/_/g, " ");
+      return cityA.localeCompare(cityB);
+    });
   }
 }
 
