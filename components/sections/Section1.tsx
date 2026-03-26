@@ -19,7 +19,7 @@ const MESSAGING_OPTIONS = [
   { value: "Telegram", label: "Telegram (recommended)" },
   { value: "WhatsApp", label: "WhatsApp" },
   { value: "iMessage", label: "iMessage" },
-  { value: "Signal", label: "Signal" },
+  { value: "Discord", label: "Discord" },
   { value: "Other", label: "Other" },
 ];
 
