@@ -127,6 +127,12 @@ export function CheckboxGroup({ options, selected, onChange }: CheckboxGroupProp
               transition: "all 0.15s",
             }}
           >
+            <input
+              type="checkbox"
+              checked={checked}
+              onChange={() => toggle(opt)}
+              style={{ position: "absolute", opacity: 0, width: 0, height: 0, pointerEvents: "none" }}
+            />
             <div
               style={{
                 width: "18px",
@@ -182,8 +188,13 @@ export function RadioGroup({ options, value, onChange }: RadioGroupProps) {
               border: checked ? "1px solid rgba(124,58,237,0.5)" : "1px solid rgba(255,255,255,0.08)",
               transition: "all 0.15s",
             }}
-            onClick={() => onChange(opt.value)}
           >
+            <input
+              type="radio"
+              checked={checked}
+              onChange={() => onChange(opt.value)}
+              style={{ position: "absolute", opacity: 0, width: 0, height: 0, pointerEvents: "none" }}
+            />
             <div
               style={{
                 width: "18px",
