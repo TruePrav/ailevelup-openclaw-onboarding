@@ -41,8 +41,8 @@ export default function Section6({ register, errors, watch, setValue, control }:
       <div style={cardStyle}>
         <Field
           qNum="Q18"
-          label="Is there anything you want kept strictly private?"
-          hint="Optional but important — e.g. specific people, financial details, health matters"
+          label="Are there topics your agent should never bring up or act on?"
+          hint="Optional — e.g. 'Don't mention my health issues in messages', 'Never share my financials', 'Keep my relationship status private' — even if your agent has access to this info"
         >
           <div style={{ marginBottom: "6px" }}>
             <span style={{
@@ -54,12 +54,12 @@ export default function Section6({ register, errors, watch, setValue, control }:
               borderRadius: "4px",
               marginBottom: "8px",
             }}>
-              Optional but important
+              Optional
             </span>
           </div>
           <textarea
             {...register("q18_private")}
-            placeholder="e.g. 'Never mention my health issues', 'Keep my financial details private'..."
+            placeholder="e.g. 'Don't mention my health issues', 'Never share my financial details with anyone'..."
             style={textareaStyle}
           />
         </Field>
