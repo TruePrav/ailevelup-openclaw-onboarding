@@ -3,8 +3,8 @@ import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 // Simple in-memory rate limiter: max 5 submissions per IP per 10 minutes
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
@@ -78,13 +78,19 @@ export async function POST(request: NextRequest) {
       .toLowerCase();
     const filename = `${timestamp}-${name}.json`;
 
-    // Save JSON file (fallback/backup)
-    const submissionsDir = path.join(process.cwd(), "data", "submissions");
-    await mkdir(submissionsDir, { recursive: true });
-    const filePath = path.join(submissionsDir, filename);
-    await writeFile(filePath, JSON.stringify(data, null, 2), "utf-8");
+    // Save JSON file (fallback/backup — local dev only, Vercel filesystem is read-only)
+    if (!process.env.VERCEL) {
+      const submissionsDir = path.join(process.cwd(), "data", "submissions");
+      await mkdir(submissionsDir, { recursive: true });
+      const filePath = path.join(submissionsDir, filename);
+      await writeFile(filePath, JSON.stringify(data, null, 2), "utf-8");
+    }
 
     // Save to Supabase
+    if (!supabaseUrl || !supabaseAnonKey) {
+      console.warn("Supabase env vars not set — skipping DB insert");
+      return NextResponse.json({ success: true, filename });
+    }
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
     const { error: supabaseError } = await supabase.from("onboarding_submissions").insert({
       q1_name: data.q1_name,
